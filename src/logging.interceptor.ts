@@ -1,4 +1,4 @@
-import { logger }                                                     from '@micro/common/src/tools/logger';
+import { logger }                                                     from '@micro/common/dist/src';
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable }                                                 from 'rxjs';
 import { tap }                                                        from 'rxjs/operators';

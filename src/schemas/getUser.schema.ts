@@ -1,3 +1,3 @@
 export interface GetUserSchema {
-  id: number;
+  id: string;
 }

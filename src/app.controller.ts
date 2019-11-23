@@ -19,7 +19,7 @@ export class AppController {
 
   @Get(':id')
   async get(@Param('id') id: string) {
-    return this.usersService.get(id);
+    return this.usersService.get({ id });
   }
 
   @Post()
