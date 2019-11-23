@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { from }                                      from 'rxjs';
-import { CreateUserSchema }                          from 'src/schemas/createUser.schema';
-import { GetUsersSchema }                            from 'src/schemas/getUsers.schema';
-import { UsersService }                              from 'src/users.service';
+import { Body, Controller, Get, Param, Post, Query, UseInterceptors } from '@nestjs/common';
+import { from }                                                       from 'rxjs';
+import { LoggingInterceptor }                                         from 'src/logging.interceptor';
+import { CreateUserSchema }                                           from 'src/schemas/createUser.schema';
+import { GetUsersSchema }                                             from 'src/schemas/getUsers.schema';
+import { UsersService }                                               from 'src/users.service';
 
+@UseInterceptors(LoggingInterceptor)
 @Controller('/users')
 export class AppController {
   constructor(private readonly usersService: UsersService) {
