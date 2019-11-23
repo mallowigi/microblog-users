@@ -1,7 +1,7 @@
 import { Injectable }       from '@nestjs/common';
 import { IUser, User }      from 'src/models/user';
 import { CreateUserSchema } from 'src/schemas/createUser.schema';
-import { GetUsersSchema }   from 'src/schemas/getUsersSchema';
+import { GetUsersSchema }   from 'src/schemas/getUsers.schema';
 
 @Injectable()
 export class UsersService {
@@ -31,6 +31,32 @@ export class UsersService {
     }
 
     const user = new User({ username, password });
-    return user.save();
+    await user.save();
+
+    // Create the roles from the roles microservice
+    // try {
+    //   const createRoleRequest = { userId: user.id, type: 'user' };
+    //   this.client.send({ cmd: 'createRole' }, createRoleRequest);
+    // }
+    // catch (error) {
+    //   // If error, delete the created user
+    //   await User.deleteOne({ id: user.id });
+    //   throw new Error('could not create role');
+    // }
+    return user;
+  }
+
+  public async get(id): Promise<IUser> {
+    try {
+      return await User.findOne({ _id: id });
+    }
+    catch (e) {
+      const message = 'could not get user';
+      // logger.error({
+      //   message,
+      //   payload: { id }
+      // });
+      throw Error(message);
+    }
   }
 }

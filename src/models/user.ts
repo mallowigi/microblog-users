@@ -1,5 +1,5 @@
-import { connect, Schema, Document, model } from 'mongoose';
-import * as mongoosePaginate from 'mongoose-paginate';
+import { connect, Document, model, Schema } from 'mongoose';
+import * as mongoosePaginate                from 'mongoose-paginate';
 
 const MONGODB_URL = process.env.MONGODB_URL;
 
@@ -7,13 +7,14 @@ connect(`${MONGODB_URL}/users`, { useNewUrlParser: true });
 
 const UserSchema = new Schema({
   username: {
-    type: String,
+    type:     String,
     required: true,
-    unique: true,
+    unique:   true,
   },
   password: {
-    type: String,
+    type:     String,
     required: true,
+    select:   false,
   },
 });
 

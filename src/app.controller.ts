@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { from }                               from 'rxjs';
-import { CreateUserSchema }                   from 'src/schemas/createUser.schema';
-import { GetUsersSchema }                     from 'src/schemas/getUsersSchema';
-import { UsersService }                       from 'src/users.service';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { from }                                      from 'rxjs';
+import { CreateUserSchema }                          from 'src/schemas/createUser.schema';
+import { GetUsersSchema }                            from 'src/schemas/getUsers.schema';
+import { UsersService }                              from 'src/users.service';
 
 @Controller('/users')
 export class AppController {
@@ -13,6 +13,11 @@ export class AppController {
   async list(@Query() req: GetUsersSchema) {
     const users = await this.usersService.list(req);
     return from(users);
+  }
+
+  @Get(':id')
+  async get(@Param('id') id: string) {
+    return this.usersService.get(id);
   }
 
   @Post()
