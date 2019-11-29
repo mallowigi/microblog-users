@@ -19,11 +19,11 @@ export class AppController {
 
   @Get(':id')
   async get(@Param('id') id: string) {
-    return this.usersService.get({ id });
+    return await this.usersService.get({ id });
   }
 
   @Post()
-  create(@Body() user: CreateUserSchema) {
-    return this.usersService.create(user);
+  async create(@Body() user: CreateUserSchema) {
+    return await this.usersService.create(user);
   }
 }
