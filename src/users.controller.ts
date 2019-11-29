@@ -1,18 +1,17 @@
 import { Body, Controller, Get, Param, Post, Query, UseInterceptors } from '@nestjs/common';
 import { from }                                                       from 'rxjs';
 import { LoggingInterceptor }                                         from 'src/logging.interceptor';
-import { CreateUserSchema }                                           from 'src/schemas/createUser.schema';
-import { GetUsersSchema }                                             from 'src/schemas/getUsers.schema';
+import { CreateUserSchema, Users }                                    from 'src/schemas/users';
 import { UsersService }                                               from 'src/users.service';
 
 @UseInterceptors(LoggingInterceptor)
 @Controller('/users')
-export class AppController {
+export class UsersController {
   constructor(private readonly usersService: UsersService) {
   }
 
   @Get()
-  async list(@Query() req: GetUsersSchema) {
+  async list(@Query() req: Users) {
     const users = await this.usersService.list(req);
     return from(users);
   }
