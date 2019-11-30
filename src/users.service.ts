@@ -3,10 +3,21 @@ import { Injectable }                             from '@nestjs/common';
 import { IUser, User }                            from 'src/models/user';
 import { CreateUserSchema, GetUserSchema, Users } from 'src/schemas/users';
 
+const defaultParams: Users = {
+  query:      {},
+  pagination: {
+    limit: 10,
+    page:  1,
+  },
+};
+
 @Injectable()
 export class UsersService {
+
   async list(req: Users): Promise<IUser[]> {
-    const { query, pagination } = req;
+    const { query, pagination } = (
+      req || defaultParams
+    );
 
     try {
       const response = await User.paginate(query, pagination);
