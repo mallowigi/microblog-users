@@ -9,7 +9,7 @@ async function bootstrap() {
     transport: Transport.GRPC,
     options:   {
       package:   'service',
-      url:       '0.0.0.0:50050',
+      // url:       '0.0.0.0:50050',
       protoPath: join(__dirname, '../../common/proto/users/service.proto'),
     },
   });
@@ -20,7 +20,7 @@ async function bootstrap() {
     }),
   );
   // tslint:disable-next-line:no-console
-  await app.listen(() => console.log('users microservice is listening'));
+  await app.listenAsync();
 }
 
 bootstrap();
