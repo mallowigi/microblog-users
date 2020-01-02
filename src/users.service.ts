@@ -1,9 +1,9 @@
-import { logger }                                 from '@micro/common/dist/src';
-import { Injectable }                             from '@nestjs/common';
-import { IUser, User }                            from 'src/models/user';
-import { CreateUserSchema, GetUserSchema, Users } from 'src/schemas/users';
+import { logger }                                          from '@micro/common/dist/src';
+import { Injectable }                                      from '@nestjs/common';
+import { IUser, User }                                     from 'src/models/user';
+import { CreateUserSchema, GetUserSchema, GetUsersSchema } from 'src/schemas/users';
 
-const defaultParams: Users = {
+const defaultParams: GetUsersSchema = {
   query:      {},
   pagination: {
     limit: 10,
@@ -14,7 +14,7 @@ const defaultParams: Users = {
 @Injectable()
 export class UsersService {
 
-  async list(req: Users): Promise<IUser[]> {
+  async list(req: GetUsersSchema): Promise<IUser[]> {
     const { query, pagination } = (
       req || defaultParams
     );
@@ -47,15 +47,15 @@ export class UsersService {
       await user.save();
 
       // Create the roles from the roles microservice
-      try {
-        const createRoleRequest = { userId: user.id, type: 'user' };
-        // this.client.send({ cmd: 'createRole' }, createRoleRequest);
-      }
-      catch (error) {
-        // If error, delete the created user
-        await User.deleteOne({ id: user.id });
-        throw new Error('could not create role');
-      }
+      // try {
+      //   const createRoleRequest = { userId: user.id, type: 'user' };
+      //   // this.client.send({ cmd: 'createRole' }, createRoleRequest);
+      // }
+      // catch (error) {
+      //   // If error, delete the created user
+      //   await User.deleteOne({ id: user.id });
+      //   throw new Error('could not create role');
+      // }
       return user;
     }
     catch (error) {

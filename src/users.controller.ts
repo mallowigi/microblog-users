@@ -1,8 +1,8 @@
-import { Body, Controller, Param, Query, UseInterceptors } from '@nestjs/common';
+import { Controller, UseInterceptors }                     from '@nestjs/common';
 import { GrpcMethod }                                      from '@nestjs/microservices';
 import { from }                                            from 'rxjs';
 import { LoggingInterceptor }                              from 'src/logging.interceptor';
-import { CreateUserSchema, Users }                         from 'src/schemas/users';
+import { CreateUserSchema, GetUserSchema, GetUsersSchema } from 'src/schemas/users';
 import { UsersService }                                    from 'src/users.service';
 
 @UseInterceptors(LoggingInterceptor)
@@ -12,18 +12,19 @@ export class UsersController {
   }
 
   @GrpcMethod('UsersService')
-  async list(@Query() req: Users) {
+  async list(req: GetUsersSchema) {
     const users = await this.usersService.list(req);
     return from(users);
   }
 
   @GrpcMethod('UsersService')
-  async get(@Param('id') id: string) {
-    return await this.usersService.get({ id });
+  async get(req: GetUserSchema) {
+    return await this.usersService.get(req);
   }
 
   @GrpcMethod('UsersService')
-  async create(@Body() user: CreateUserSchema) {
-    return await this.usersService.create(user);
+  async create(user: CreateUserSchema) {
+    const newUser = await this.usersService.create(user);
+    return { user: newUser };
   }
 }

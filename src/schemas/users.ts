@@ -2,7 +2,7 @@ import { Pagination } from '@micro/common/src/schemas/pagination';
 import { Query }      from '@micro/common/src/schemas/query';
 import { IsString }   from 'class-validator';
 
-export interface Users {
+export interface GetUsersSchema {
   query: Query;
   pagination: Pagination;
 }
