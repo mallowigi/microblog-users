@@ -19,7 +19,9 @@ const defaultParams: GetUsersSchema = {
 export class UsersService implements IUsersService {
   @Client({
     transport: Transport.NATS,
-    options:   { url: process.env.NATS_URL || 'nats://localhost:8222' },
+    options:   {
+      url: process.env.NATS_URL || 'nats://localhost:4222',
+    },
   })
   client: ClientProxy;
 
@@ -62,7 +64,7 @@ export class UsersService implements IUsersService {
       // Create the roles from the roles microservice
       try {
         const createRoleRequest: CreateRoleRequest = { userId: user.id, type: 'user' };
-        this.client.send({ cmd: 'createRole' }, createRoleRequest);
+        this.client.emit({ cmd: 'createRole' }, createRoleRequest);
       }
       catch (error) {
         // If error, delete the created user
