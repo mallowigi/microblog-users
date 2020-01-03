@@ -24,7 +24,6 @@ export class UsersController {
 
   @GrpcMethod('UsersService')
   async create(user: CreateUserSchema) {
-    const newUser = await this.usersService.create(user);
-    return { user: newUser };
+    return await this.usersService.create(user);
   }
 }

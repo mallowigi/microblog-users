@@ -14,6 +14,6 @@ const UserSchema = createSchema({
 UserSchema.plugin(mongoosePaginate);
 
 // Exports
-export type IUser = ExtractDoc<typeof UserSchema>;
+export type UserDocument = ExtractDoc<typeof UserSchema>;
 export type UserProps = ExtractProps<typeof UserSchema>;
-export const User = typedModel('User', UserSchema);
+export const UserModel = typedModel('User', UserSchema);
