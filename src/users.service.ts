@@ -16,7 +16,10 @@ const defaultParams: GetUsersSchema = {
 
 @Injectable()
 export class UsersService implements IUsersService {
-  @Client({ transport: Transport.NATS, options: { url: process.env.NATS_URL } })
+  @Client({
+    transport: Transport.NATS,
+    options:   { url: process.env.NATS_URL || 'nats://localhost:8222' },
+  })
   client: ClientProxy;
 
   async onModuleInit() {
