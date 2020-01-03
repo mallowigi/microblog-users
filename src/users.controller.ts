@@ -1,6 +1,5 @@
 import { Controller, UseInterceptors }                     from '@nestjs/common';
 import { GrpcMethod }                                      from '@nestjs/microservices';
-import { from }                                            from 'rxjs';
 import { LoggingInterceptor }                              from 'src/logging.interceptor';
 import { CreateUserSchema, GetUserSchema, GetUsersSchema } from 'src/schemas/users';
 import { UsersService }                                    from 'src/users.service';
@@ -13,8 +12,7 @@ export class UsersController {
 
   @GrpcMethod('UsersService')
   async list(req: GetUsersSchema) {
-    const users = await this.usersService.list(req);
-    return from(users);
+    return await this.usersService.list(req);
   }
 
   @GrpcMethod('UsersService')

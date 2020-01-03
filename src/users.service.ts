@@ -3,6 +3,7 @@ import { CreateRoleRequest }                               from '@micro/common/s
 import { CreateUserResponse, IUsersService }               from '@micro/common/src/types/users';
 import { Injectable }                                      from '@nestjs/common';
 import { Client, ClientProxy, Transport }                  from '@nestjs/microservices';
+import { from, Observable }                                from 'rxjs';
 import { UserDocument, UserModel }                         from 'src/models/userModel';
 import { CreateUserSchema, GetUserSchema, GetUsersSchema } from 'src/schemas/users';
 
@@ -26,14 +27,14 @@ export class UsersService implements IUsersService {
     await this.client.connect();
   }
 
-  public async list(req: GetUsersSchema): Promise<UserDocument[]> {
+  public async list(req: GetUsersSchema): Promise<Observable<UserDocument>> {
     const { query, pagination } = (
       req || defaultParams
     );
 
     try {
       const response = await UserModel.paginate(query, pagination);
-      return response.docs;
+      return from(response.docs as UserDocument[]);
     }
     catch (error) {
       const message = 'could not fetch users';

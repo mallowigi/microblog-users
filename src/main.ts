@@ -1,26 +1,19 @@
-import { ValidationPipe } from '@nestjs/common';
-import { Transport }      from '@nestjs/common/enums/transport.enum';
-import { NestFactory }    from '@nestjs/core';
-import { join }           from 'path';
-import { AppModule }      from './app.module';
+import { usersGrpcClientOptions } from '@micro/common/dist/src';
+import { ValidationPipe }         from '@nestjs/common';
+import { NestFactory }            from '@nestjs/core';
+import { AppModule }              from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AppModule, {
-    transport: Transport.GRPC,
-    options:   {
-      package:   'service',
-      // url:       '0.0.0.0:50050',
-      protoPath: join(__dirname, '../../common/proto/users/service.proto'),
-    },
-  });
+  const app = await NestFactory.create(AppModule);
+  app.connectMicroservice(usersGrpcClientOptions);
   app.useGlobalPipes(
     new ValidationPipe({
       transform:            true,
       forbidNonWhitelisted: true,
     }),
   );
-  // tslint:disable-next-line:no-console
-  await app.listenAsync();
+  await app.startAllMicroservicesAsync();
+  await app.listen(3000);
 }
 
 bootstrap();
