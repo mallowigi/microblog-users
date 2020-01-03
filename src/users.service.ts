@@ -1,6 +1,6 @@
 import { logger }                                          from '@micro/common/dist/src';
 import { CreateRoleRequest }                               from '@micro/common/src/types/authorization';
-import { CreateResponse, IUsersService }                   from '@micro/common/src/types/users';
+import { CreateUserResponse, IUsersService }               from '@micro/common/src/types/users';
 import { Injectable }                                      from '@nestjs/common';
 import { Client, ClientProxy, Transport }                  from '@nestjs/microservices';
 import { UserDocument, UserModel }                         from 'src/models/userModel';
@@ -45,7 +45,7 @@ export class UsersService implements IUsersService {
     }
   }
 
-  public async create(request: CreateUserSchema): Promise<CreateResponse<UserDocument>> {
+  public async create(request: CreateUserSchema): Promise<CreateUserResponse<UserDocument>> {
     const { username, password } = request;
 
     try {
