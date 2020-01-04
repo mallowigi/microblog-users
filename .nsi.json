@@ -1,5 +1,6 @@
 [
   "@micro/common",
   "users",
-  "authorization"
+  "authorization",
+  "auth"
 ]
