@@ -1,4 +1,4 @@
-import { logger }                                          from '@micro/common/dist/src';
+import { logger, RoleType }                                from '@micro/common/dist/src';
 import { CreateRoleRequest }                               from '@micro/common/src/types/authorization';
 import { CreateUserResponse, IUsersService }               from '@micro/common/src/types/users';
 import { Injectable }                                      from '@nestjs/common';
@@ -63,8 +63,8 @@ export class UsersService implements IUsersService {
 
       // Create the roles from the roles microservice
       try {
-        const createRoleRequest: CreateRoleRequest = { userId: user.id, type: 'user' };
-        this.client.emit({ cmd: 'createRole' }, createRoleRequest);
+        const createRoleRequest: CreateRoleRequest = { userId: user.id, type: RoleType.User };
+        await this.client.send({ cmd: 'createRole' }, createRoleRequest).toPromise();
       }
       catch (error) {
         // If error, delete the created user
