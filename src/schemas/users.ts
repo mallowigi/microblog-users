@@ -1,6 +1,5 @@
-import { Pagination } from '@micro/common/src/schemas/pagination';
-import { Query }      from '@micro/common/src/schemas/query';
 import { IsString }   from 'class-validator';
+import { Query, Pagination } from '@mallowigi/common';
 
 export interface GetUsersSchema {
   query: Query;

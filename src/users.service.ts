@@ -1,11 +1,9 @@
-import { logger, RoleType }                                from '@micro/common/dist/src';
-import { CreateRoleRequest }                               from '@micro/common/src/types/authorization';
-import { CreateUserResponse, IUsersService }               from '@micro/common/src/types/users';
 import { Injectable }                                      from '@nestjs/common';
 import { Client, ClientProxy, Transport }                  from '@nestjs/microservices';
 import { from, Observable }                                from 'rxjs';
 import { UserDocument, UserModel }                         from 'src/models/userModel';
 import { CreateUserSchema, GetUserSchema, GetUsersSchema } from 'src/schemas/users';
+import { CreateRoleRequest, IUsersService, logger, CreateUserResponse, RoleType } from '@mallowigi/common';
 
 const defaultParams: GetUsersSchema = {
   query:      {},
