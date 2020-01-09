@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
-    "@mallowigi/common": "^1.0.5",
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
     "@nestjs/microservices": "^6.10.3",
@@ -38,7 +37,7 @@
     "ts-mongoose": "latest"
   },
   "devDependencies": {
-    "@mallowigi/common": "^1.0.7",
+    "@mallowigi/common": "latest",
     "@nestjs/cli": "^6.9.0",
     "@nestjs/schematics": "^6.7.0",
     "@nestjs/testing": "^6.7.1",
