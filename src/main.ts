@@ -1,11 +1,19 @@
-import { usersGrpcClientOptions } from '@mallowigi/common';
-import { ValidationPipe }         from '@nestjs/common';
-import { NestFactory }            from '@nestjs/core';
-import { AppModule }              from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory }    from '@nestjs/core';
+import { Transport }      from '@nestjs/microservices';
+import { join }           from 'path';
+import { AppModule }      from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.connectMicroservice(usersGrpcClientOptions);
+  app.connectMicroservice({
+    transport: Transport.GRPC,
+    options:   {
+      url:       '0.0.0.0:50053',
+      package:   'service',
+      protoPath: join(__dirname, '../../common/proto/users/service.proto'),
+    },
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       transform:            true,
