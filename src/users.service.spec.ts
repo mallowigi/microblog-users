@@ -1,5 +1,4 @@
 import { ClientProxy, ClientProxyFactory, Transport }      from '@mallowigi/users/node_modules/@nestjs/microservices';
-import { from }                                            from '@mallowigi/users/node_modules/rxjs';
 import { Test }                                            from '@nestjs/testing';
 import { UserModel }                                       from './models/userModel';
 import { CreateUserSchema, GetUserSchema, GetUsersSchema } from './schemas/users';
@@ -44,49 +43,46 @@ describe('UsersService', () => {
   });
 
   describe('list', () => {
-    it('should return an array of users', async () => {
-      const users = [
-        new UserModel({
-          username: 'hello',
-          password: 'world',
-        }), new UserModel({
-          username: 'hola',
-          password: 'mundo',
-        }),
-      ];
-
-      const result = from(users);
+    it('should return an array of users', async (done) => {
+      const result = [];
       const req: GetUsersSchema = {
         pagination: null,
         query:      null,
       };
-      jest.spyOn(usersService, 'list').mockImplementation(async () => await result);
 
-      expect(await usersService.list(req)).toBe(result);
+      const userDocumentObservable = await usersService.list(req);
+      userDocumentObservable.subscribe({
+        next:     val => {
+          result.push(val);
+        },
+        complete: () => {
+          expect(result.length).toBeGreaterThan(1);
+          done();
+        },
+      });
     });
   });
 
   describe('get', () => {
     it('should return an user', async () => {
       const user = new UserModel({
-        username: 'hello',
-        password: 'world',
+        id:       '5e0e3e488df5fe1f00f308f7',
+        username: 'Amya.Dach',
       });
-
-      const result = user;
       const req: GetUserSchema = {
-        id: '123',
+        id: '5e0e3e488df5fe1f00f308f7',
       };
-      jest.spyOn(usersService, 'get').mockImplementation(async () => await result);
 
-      expect(await usersService.get(req)).toBe(result);
+      const foundUser = await usersService.get(req);
+      expect(foundUser.username).toBe(user.username);
+      expect(foundUser.password).toBe(user.password);
     });
   });
 
   describe('create', () => {
     it('should create an user', async () => {
       const newUser = new UserModel({
-        username: 'hello',
+        username: 'dark',
         password: 'world',
       });
 
@@ -94,7 +90,6 @@ describe('UsersService', () => {
         user: newUser,
       };
       const req: CreateUserSchema = newUser;
-      jest.spyOn(usersService, 'create').mockImplementation(async () => result);
 
       expect(await usersService.create(req)).toBe(result);
     });
