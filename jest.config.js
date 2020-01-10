@@ -20,5 +20,6 @@ module.exports = {
     'ts',
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  modulePathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
   testEnvironment: 'node',
 };

@@ -1,8 +1,9 @@
 import { CreateRoleRequest, CreateUserResponse, IUsersService, logger, RoleType } from '@mallowigi/common';
+import { natsClient }                                                             from '@mallowigi/users/src/clients.provider';
 import { UserDocument, UserModel }                                                from '@mallowigi/users/src/models/userModel';
 import { CreateUserSchema, GetUserSchema, GetUsersSchema }                        from '@mallowigi/users/src/schemas/users';
 import { Injectable }                                                             from '@nestjs/common';
-import { Client, ClientProxy, Transport }                                         from '@nestjs/microservices';
+import { Client, ClientProxy }                                                    from '@nestjs/microservices';
 import { from, Observable }                                                       from 'rxjs';
 
 const defaultParams: GetUsersSchema = {
@@ -15,12 +16,7 @@ const defaultParams: GetUsersSchema = {
 
 @Injectable()
 export class UsersService implements IUsersService {
-  @Client({
-    transport: Transport.NATS,
-    options:   {
-      url: process.env.NATS_URL || 'nats://localhost:4222',
-    },
-  })
+  @Client(natsClient)
   client: ClientProxy;
 
   async onModuleInit() {
