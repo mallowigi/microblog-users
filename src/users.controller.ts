@@ -1,4 +1,4 @@
-import { CreateUserResponse, IUser }                       from '@mallowigi/users/node_modules/@mallowigi/common';
+import { CreateUserResponse, IUser }                       from '@mallowigi/common';
 import { Observable }                                      from '@mallowigi/users/node_modules/rxjs';
 import { LoggingInterceptor }                              from '@mallowigi/users/src/logging.interceptor';
 import { CreateUserSchema, GetUserSchema, GetUsersSchema } from '@mallowigi/users/src/schemas/users';
@@ -29,6 +29,6 @@ export class UsersController {
 
   @MessagePattern({ cmd: 'getUser' })
   async getUser(req: GetUserSchema): Promise<IUser> {
-    return await this.get(req);
+    return await this.usersService.get(req);
   }
 }
