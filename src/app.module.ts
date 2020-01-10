@@ -1,6 +1,6 @@
+import { UsersController } from '@mallowigi/users/src/users.controller';
+import { UsersService }    from '@mallowigi/users/src/users.service';
 import { Module }          from '@nestjs/common';
-import { UsersController } from 'src/users.controller';
-import { UsersService }    from 'src/users.service';
 
 @Module({
   imports:     [],

@@ -1,8 +1,8 @@
+import { LoggingInterceptor }                              from '@mallowigi/users/src/logging.interceptor';
+import { CreateUserSchema, GetUserSchema, GetUsersSchema } from '@mallowigi/users/src/schemas/users';
+import { UsersService }                                    from '@mallowigi/users/src/users.service';
 import { Controller, UseInterceptors }                     from '@nestjs/common';
 import { GrpcMethod }                                      from '@nestjs/microservices';
-import { LoggingInterceptor }                              from 'src/logging.interceptor';
-import { CreateUserSchema, GetUserSchema, GetUsersSchema } from 'src/schemas/users';
-import { UsersService }                                    from 'src/users.service';
 
 @UseInterceptors(LoggingInterceptor)
 @Controller()

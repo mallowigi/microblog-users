@@ -1,9 +1,9 @@
-import { Injectable }                                      from '@nestjs/common';
-import { Client, ClientProxy, Transport }                  from '@nestjs/microservices';
-import { from, Observable }                                from 'rxjs';
-import { UserDocument, UserModel }                         from 'src/models/userModel';
-import { CreateUserSchema, GetUserSchema, GetUsersSchema } from 'src/schemas/users';
-import { CreateRoleRequest, IUsersService, logger, CreateUserResponse, RoleType } from '@mallowigi/common';
+import { CreateRoleRequest, CreateUserResponse, IUsersService, logger, RoleType } from '@mallowigi/common';
+import { UserDocument, UserModel }                                                from '@mallowigi/users/src/models/userModel';
+import { CreateUserSchema, GetUserSchema, GetUsersSchema }                        from '@mallowigi/users/src/schemas/users';
+import { Injectable }                                                             from '@nestjs/common';
+import { Client, ClientProxy, Transport }                                         from '@nestjs/microservices';
+import { from, Observable }                                                       from 'rxjs';
 
 const defaultParams: GetUsersSchema = {
   query:      {},
