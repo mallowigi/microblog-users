@@ -1,5 +1,5 @@
+import { usersGrpcClient, usersNatsClient } from '@mallowigi/common';
 import { AppModule }                        from '@mallowigi/users/src/app.module';
-import { usersGrpcClient, usersNatsClient } from '@mallowigi/users/src/clients.provider';
 import { ValidationPipe }                   from '@nestjs/common';
 import { NestFactory }                      from '@nestjs/core';
 
