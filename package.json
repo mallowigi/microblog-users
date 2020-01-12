@@ -34,10 +34,10 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",
+    "@mallowigi/common": "^1.1.0",
     "ts-mongoose": "latest"
   },
   "devDependencies": {
-    "@mallowigi/common": "^1.1.0",
     "@nestjs/cli": "^6.13.3",
     "@nestjs/schematics": "^6.8.2",
     "@nestjs/testing": "^6.10.14",
