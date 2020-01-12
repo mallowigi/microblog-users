@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
+    "@mallowigi/common": "^1.1.2",
     "@nestjs/common": "^6.10.14",
     "@nestjs/core": "^6.10.14",
     "@nestjs/microservices": "^6.10.14",
@@ -34,7 +35,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",
-    "@mallowigi/common": "^1.1.0",
     "ts-mongoose": "latest"
   },
   "devDependencies": {
